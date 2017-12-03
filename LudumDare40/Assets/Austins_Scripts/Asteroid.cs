@@ -16,6 +16,7 @@ public class Asteroid : MonoBehaviour
 	{
 		health = Random.Range(50f, 200f);
 		numOfGems = Mathf.FloorToInt (health / 50);
+		transform.localScale = transform.localScale * numOfGems;
 		mybody =GetComponent<Rigidbody2D>();
 		Vector2 shitbird = new Vector2 (Random.Range (-10f, 10f), Random.Range (-10f, 10f));
 		mybody.AddForce (shitbird* speed, ForceMode2D.Impulse) ;

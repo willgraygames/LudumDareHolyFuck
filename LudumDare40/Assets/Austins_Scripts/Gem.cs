@@ -24,5 +24,3 @@ public class Gem : MonoBehaviour
 		}	
 	}
 }
-
-enum GemType { common, uncommon, rare, legendary }
