@@ -7,6 +7,7 @@ public class LaserController : MonoBehaviour {
 	public int laserDamage;
 	public GameObject hitParticle;
 	public GameObject hitLight;
+	public float laserCharge;
 
 	bool laserOvercharge;
 

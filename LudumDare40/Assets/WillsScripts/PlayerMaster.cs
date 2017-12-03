@@ -4,13 +4,24 @@ using UnityEngine;
 
 public class PlayerMaster : MonoBehaviour {
 
+	public static PlayerMaster Instance { get; protected set; }
+
 	public float moveSpeed;
 	public float maxSpeed;
+	public int health;
 
 	public GameObject cameraReference;
 	public GameObject laserHousing;
 
 	Rigidbody2D rb2d;
+
+	void Awake () {
+		if (Instance != null) {
+			print ("There should only be on player");
+		} else {
+			Instance = this;
+		}
+	}
 
 	// Use this for initialization
 	void Start () {
