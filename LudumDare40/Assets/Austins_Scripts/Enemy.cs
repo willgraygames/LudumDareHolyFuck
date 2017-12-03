@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
 			Debug.Log ("Hit Player");
 			canMove = false;
 			StartCoroutine (TimePass ());
-			collide.gameObject.GetComponent<Player> ().GemCount = collide.gameObject.GetComponent<Player> ().GemCount - 2;
+			//collide.gameObject.GetComponent<Player> ().GemCount = collide.gameObject.GetComponent<Player> ().GemCount - 2;
 		}
 	}
 
