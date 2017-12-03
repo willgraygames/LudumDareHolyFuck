@@ -17,11 +17,6 @@ public class PlayerMaster : MonoBehaviour {
 		rb2d = GetComponent<Rigidbody2D> ();
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-	}
-
 	void FixedUpdate () {
 		HandleMovement ();
 	}
@@ -32,5 +27,29 @@ public class PlayerMaster : MonoBehaviour {
 		Vector2 movement = new Vector2 (horizontal, vertical);
 		rb2d.AddForce (movement * moveSpeed);
 		rb2d.velocity = Vector2.ClampMagnitude (rb2d.velocity, maxSpeed);
+	}
+
+	void OnCollisionEnter2D(Collision2D collide)
+	{
+		if (collide.gameObject.tag == "PurpleGem")
+		{
+			GameManager.Instance.gemCount += 1;
+			Destroy (collide.gameObject);
+		}
+		if (collide.gameObject.tag == "PinkGem")
+		{
+			GameManager.Instance.gemCount += 2;
+			Destroy (collide.gameObject);
+		}
+		if (collide.gameObject.tag == "FuschiaGem")
+		{
+			GameManager.Instance.gemCount += 5;
+			Destroy (collide.gameObject);
+		}
+		if (collide.gameObject.tag == "TurquoiseGem")
+		{
+			GameManager.Instance.gemCount += 7;
+			Destroy (collide.gameObject);
+		}
 	}
 }
