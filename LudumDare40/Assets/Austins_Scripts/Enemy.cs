@@ -10,18 +10,14 @@ public class Enemy : MonoBehaviour
 	private float range;
 
 	public int health;
-
-
+	bool canMove = true;
 
 	void Update()
 	{
-
-		transform.LookAt (target);
-		range = Vector2.Distance (transform.position, target.position);
-		if (range > minDistance)
+		if (canMove ==true)
 		{
-			
-			transform.position = Vector2.MoveTowards (transform.position, target.position, speed * Time.deltaTime);
+			//Debug.Log ("inside of if");
+			Move ();
 		}
 	}
 
@@ -30,8 +26,27 @@ public class Enemy : MonoBehaviour
 		if (collide.collider.gameObject.tag == "Player")
 		{
 			Debug.Log ("Hit Player");
-			transform.position = new Vector2 (transform.position.x, transform.position.y);
+			canMove = false;
+			StartCoroutine (TimePass ());
+			collide.gameObject.GetComponent<Player> ().GemCount = collide.gameObject.GetComponent<Player> ().GemCount - 2;
 		}
+	}
+
+	void Move()
+	{
+		//transform.LookAt (target); //turned on it does not print the Debug or "make contact"
+		range = Vector2.Distance (transform.position, target.position);
+		if (range > minDistance)
+		{
+			transform.position = Vector2.MoveTowards (transform.position, target.position, speed * Time.deltaTime);
+		}
+	}
+
+	IEnumerator TimePass()
+	{
+		Debug.Log ("in TimePass");
+		yield return new WaitForSeconds (2f);
+		canMove = true;
 	}
 
 }

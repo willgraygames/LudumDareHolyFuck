@@ -9,6 +9,7 @@ TagManager:
   - PinkGem
   - FuschiaGem
   - Asteroid
+  - Enemy
   layers:
   - Default
   - TransparentFX
