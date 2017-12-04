@@ -4,20 +4,31 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour 
 {
-	public Transform target;
+	Transform target;
 	public float speed = 2f;
 	private float minDistance = 1f;
 	private float range;
+	public int damage;
 
 	public int health;
+	public int maxHealth;
 	bool canMove = true;
+
+	void OnEnable () {
+		health = maxHealth;
+	}
 
 	void Update()
 	{
+		target = PlayerMaster.Instance.gameObject.transform;
 		if (canMove ==true)
 		{
 			//Debug.Log ("inside of if");
 			Move ();
+		}
+		if (health <= 0) {
+			GameManager.Instance.enemyCount -= 1;
+			SimplePool.Despawn (this.gameObject);
 		}
 	}
 
@@ -28,13 +39,15 @@ public class Enemy : MonoBehaviour
 			Debug.Log ("Hit Player");
 			canMove = false;
 			StartCoroutine (TimePass ());
-			//collide.gameObject.GetComponent<Player> ().GemCount = collide.gameObject.GetComponent<Player> ().GemCount - 2;
+			GameManager.Instance.gemCount -= 2;
+			PlayerMaster.Instance.health -= 10;
 		}
 	}
 
 	void Move()
 	{
-		//transform.LookAt (target); //turned on it does not print the Debug or "make contact"
+		Quaternion rotation = Quaternion.LookRotation (target.transform.position - transform.position, transform.TransformDirection (Vector3.up));
+		transform.rotation = new Quaternion (0, 0, rotation.z, rotation.w);
 		range = Vector2.Distance (transform.position, target.position);
 		if (range > minDistance)
 		{

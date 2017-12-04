@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class PlayerMaster : MonoBehaviour {
 
+	public static PlayerMaster Instance { get; protected set; }
+
 	public float moveSpeed;
 	public float maxSpeed;
+	public int health;
 
 	public GameObject cameraReference;
 	public GameObject laserHousing;
@@ -13,6 +16,15 @@ public class PlayerMaster : MonoBehaviour {
 	Rigidbody2D rb2d;
 
 	// Use this for initialization
+
+	void Awake () {
+		if (Instance != null) {
+			print ("there should only be one player");
+		} else {
+			Instance = this;
+		}
+	}
+
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D> ();
 	}
